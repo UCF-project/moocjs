@@ -1,6 +1,6 @@
 <%= render :partial => 'vish_editor' %>
 
-<script>	
+<script>
 	options = {};
 	var configuration = {};
 
@@ -35,27 +35,32 @@
 		configuration["SoundCloudAPIKEY"] =  "<%= Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'] %>";
 	<% end %>
 
+	// UCF
+	<% if (!Vish::Application.config.APP_CONFIG['ucf'].nil? and Vish::Application.config.APP_CONFIG['ucf']["enable"]===true) %>
+		configuration["ucf"] = true;
+	<% end %>
+
 	//Thumbnails
 	configuration["thumbnailsPath"] = '/thumbnails.json';
-	
+
 	//Tags
 	configuration["tagsPath"] = "/tags.json?mode=popular&limit=100";
-	
+
 	//TmpJSON
 	configuration["uploadJSONPath"] = "/excursions/tmpJson.json";
 
 	//Attachment
 	configuration["uploadAttachmentPath"] = "/excursions/attachments.json";
-	
+
 
 	configuration["presentationSettings"] = true;
 
 	var tagsSettings = new Object();
 	tagsSettings.maxLength = '<%=Vish::Application.config.tagsSettings["maxLength"]%>';
 	tagsSettings.maxTags = '<%=Vish::Application.config.tagsSettings["maxTags"]%>';
-	tagsSettings.triggerKeys = <%=raw(Vish::Application.config.tagsSettings["triggerKeys"].to_json)%>;     	
+	tagsSettings.triggerKeys = <%=raw(Vish::Application.config.tagsSettings["triggerKeys"].to_json)%>;
 	configuration["tagsSettings"] = tagsSettings;
-	
+
 	<% if available_services.include? "Catalogue" %>
 		configuration["catalog"] = <%= raw Vish::Application.config.catalogue["categories"].map{|c| c.capitalize}.to_json %>;
 	<% end %>

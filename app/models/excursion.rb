@@ -1,9 +1,9 @@
 require 'builder'
 
 class Excursion < ActiveRecord::Base
- 
+
   attr_accessor :attachment_url
-  has_attached_file :attachment, 
+  has_attached_file :attachment,
                     :url => '/:class/:id/attachment_file',
                     :path => ':rails_root/documents/attachments/:id_partition/:filename.:extension'
   validates_attachment_size :attachment, :less_than => 8.megabytes
@@ -23,7 +23,7 @@ class Excursion < ActiveRecord::Base
 
   define_index do
     activity_object_index
-    
+
     has slide_count
     has draft
   end
@@ -118,6 +118,7 @@ class Excursion < ActiveRecord::Base
   def self.createSCORM(version="2004",folderPath,fileName,json,excursion,controller)
     require 'zip'
 
+    logger.info "Creating SCORM"
     # folderPath = "#{Rails.root}/public/scorm/version/excursions/"
     # fileName = self.id
     # json = JSON(self.json)
@@ -130,7 +131,7 @@ class Excursion < ActiveRecord::Base
       zos.print xml_manifest.target!()
 
       zos.put_next_entry("excursion.html")
-      zos.print controller.render_to_string "show.scorm.erb", :locals => {:excursion=>excursion, :json => json}, :layout => false  
+      zos.print controller.render_to_string "show.scorm.erb", :locals => {:excursion=>excursion, :json => json, :version => version}, :layout => false
     end
 
     #Add required XSD files and folders
@@ -141,7 +142,7 @@ class Excursion < ActiveRecord::Base
     #LOM schema
     # schemaDirs.push("#{Rails.root}/public/schemas/lom")
     schemaFiles.push("#{Rails.root}/public/schemas/lom/lom.xsd");
-    
+
     schemaDirs.each do |dir|
       zip_folder(t.path,dir)
     end
@@ -201,7 +202,7 @@ class Excursion < ActiveRecord::Base
   end
 
   def self.generate_scorm_manifest(version,ejson,excursion,options={})
-    version = "2004" unless version.is_a? String and ["12","2004"].include?(version)
+    version = "2004" unless version.is_a? String and ["12","2004","ucf"].include?(version)
 
     #Get manifest resource identifier and LOM identifier
     if excursion and !excursion.id.nil?
@@ -214,7 +215,7 @@ class Excursion < ActiveRecord::Base
       count = Site.current.config["tmpCounter"].nil? ? 1 : Site.current.config["tmpCounter"]
       Site.current.config["tmpCounter"] = count + 1
       Site.current.save!
-      
+
       identifier = "TmpSCORM_" + count.to_s
       lomIdentifier = "urn:ViSH:" + identifier
     end
@@ -241,7 +242,22 @@ class Excursion < ActiveRecord::Base
       manifestContent["schemaVersion"] = "1.2"
     when "2004"
       #SCORM 2004 4th Edition
-      manifestHeaderOptions =  { 
+      manifestHeaderOptions =  {
+        "identifier"=>"VISH_PRESENTATION_" + identifier,
+        "version"=>"1.3",
+        "xmlns"=>"http://www.imsglobal.org/xsd/imscp_v1p1",
+        "xmlns:adlcp"=>"http://www.adlnet.org/xsd/adlcp_v1p3",
+        "xmlns:adlseq"=>"http://www.adlnet.org/xsd/adlseq_v1p3",
+        "xmlns:adlnav"=>"http://www.adlnet.org/xsd/adlnav_v1p3",
+        "xmlns:imsss"=>"http://www.imsglobal.org/xsd/imsss",
+        "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
+        "xsi:schemaLocation"=>"http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd http://www.adlnet.org/xsd/adlcp_v1p3 adlcp_v1p3.xsd http://www.adlnet.org/xsd/adlseq_v1p3 adlseq_v1p3.xsd http://www.adlnet.org/xsd/adlnav_v1p3 adlnav_v1p3.xsd http://www.imsglobal.org/xsd/imsss imsss_v1p0.xsd"
+      }
+      manifestContent["schemaVersion"] = "2004 4th Edition"
+    when "ucf"
+      #SCORM ucf based on
+      #SCORM 2004 4th Edition
+      manifestHeaderOptions =  {
         "identifier"=>"VISH_PRESENTATION_" + identifier,
         "version"=>"1.3",
         "xmlns"=>"http://www.imsglobal.org/xsd/imscp_v1p1",
@@ -306,13 +322,13 @@ class Excursion < ActiveRecord::Base
         resourceOptions['adlcp:scormType'] = "sco"
       end
 
-      myxml.resources do         
+      myxml.resources do
         myxml.resource(resourceOptions) do
           myxml.file('href'=> "excursion.html")
         end
       end
 
-    end    
+    end
 
     return myxml
   end
@@ -339,7 +355,7 @@ class Excursion < ActiveRecord::Base
       myxml = ::Builder::XmlMarkup.new(:indent => 2)
       myxml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
     end
-   
+
     #Select LOM Header options
     lomHeaderOptions = {}
 
@@ -420,7 +436,7 @@ class Excursion < ActiveRecord::Base
         authorName = excursion.author.name
       end
 
-      # loDate 
+      # loDate
       # According to ISO 8601 (e.g. 2014-06-23)
       if excursion
         loDate = excursion.updated_at
@@ -440,7 +456,7 @@ class Excursion < ActiveRecord::Base
       #Building LOM XML
 
       myxml.general do
-        
+
         if !loId.nil?
           myxml.identifier do
             if loIdIsURI
@@ -463,7 +479,7 @@ class Excursion < ActiveRecord::Base
         if loLanguage
           myxml.language(loLanguage)
         end
-        
+
         myxml.description do
           if ejson["description"]
             myxml.string(ejson["description"], loLanOpts)
@@ -486,7 +502,7 @@ class Excursion < ActiveRecord::Base
             ejson["subject"].each do |subject|
               myxml.keyword do
                 myxml.string(subject, loLanOpts)
-              end 
+              end
             end
           elsif ejson["subject"].kind_of?(String)
             myxml.keyword do
@@ -526,7 +542,7 @@ class Excursion < ActiveRecord::Base
             end
             authorEntity = generateVCard(authorName)
             myxml.entity(authorEntity)
-            
+
             myxml.date do
               myxml.dateTime(loDate)
               unless _LOMschema == "ODS"
@@ -681,7 +697,7 @@ class Excursion < ActiveRecord::Base
           end
         end
         if loLanguage
-          myxml.language(loLanguage)                 
+          myxml.language(loLanguage)
         end
       end
 
@@ -759,10 +775,10 @@ class Excursion < ActiveRecord::Base
               end
             end
           end
-          
+
         end
       end
-      
+
     end
 
     myxml
@@ -793,7 +809,7 @@ class Excursion < ActiveRecord::Base
 
   def self.readableContext(context, _LOMschema)
     case _LOMschema
-    when "ODS" 
+    when "ODS"
       #ODS LOM Extension
       #According to ODS, context has to be one of ["primary education", "secondary education", "informal context"]
       case context
@@ -893,9 +909,9 @@ class Excursion < ActiveRecord::Base
 
   def to_pdf
     if self.pdf_needs_generate and !Vish::Application.config.APP_CONFIG["selenium"].nil?
-      
+
       remote = (!Vish::Application.config.APP_CONFIG["selenium"]["remote"].blank? and !Vish::Application.config.APP_CONFIG["selenium"]["remoteFolder"].blank?)
-      
+
       vishPdfFolder = "#{Rails.root}/public/pdf/excursions/#{self.id}"
       Dir.mkdir(vishPdfFolder) unless File.exists?(vishPdfFolder) #Create folder if not exists
 
@@ -910,7 +926,7 @@ class Excursion < ActiveRecord::Base
       thumbnails = generate_thumbnails(remote,pdfFolder)
 
       unless thumbnails.nil? or thumbnails.length < 1
-        
+
         ##Generate PDF using RMagick
         # require 'RMagick'
         # pdf = File.open(pdfFolder+"/#{self.id}.pdf", 'w')
@@ -927,7 +943,7 @@ class Excursion < ActiveRecord::Base
         #Imagemagick command example: convert 785_1.png  785_1_1.png 785_1_2.png 785_1_3.png 984c.pdf
         pdf_file_name = "#{self.id}.pdf"
         image_list = thumbnails.join(" ")
-        
+
         if remote
           system "cd #{pdfFolder}; convert #{image_list} #{pdf_file_name}"
           #Copy file from SeleniumServer to ViSH Server
@@ -952,7 +968,7 @@ class Excursion < ActiveRecord::Base
       #Set selenium browser and driver
       seleniumBrowser = Vish::Application.config.APP_CONFIG["selenium"]["browser"].downcase.to_sym
       profile = nil
-      
+
       unless Vish::Application.config.APP_CONFIG["selenium"]["profile"].blank?
         #Load a specific profile (https://code.google.com/p/selenium/wiki/RubyBindings#Tweaking_profile_preferences)
         profile = Vish::Application.config.APP_CONFIG["selenium"]["profile"]
@@ -1009,12 +1025,12 @@ class Excursion < ActiveRecord::Base
       #Hide other elements, not useful or annoying in printed versions
       driver.execute_script %Q{ $("#page-switcher-start, #page-switcher-end").hide(); }
       driver.execute_script %Q{ $(".buttonQuiz").hide(); }
-      
+
       #Disable non-iframe alerts
       driver.execute_script %Q{ window.alert = function(){}; }
 
       #Get slidesQuantity
-      slidesQuantity = driver.execute_script %Q{ 
+      slidesQuantity = driver.execute_script %Q{
         return VISH.Slides.getSlidesQuantity();
       }
 
@@ -1023,7 +1039,7 @@ class Excursion < ActiveRecord::Base
         driver.execute_script %Q{
           VISH.Slides.goToSlide(#{num+1});
         }
-        driver.execute_script %Q{ 
+        driver.execute_script %Q{
           $("article.current").css("display","block");
           $("article").not(".current").css("display","none");
         }
@@ -1042,28 +1058,28 @@ class Excursion < ActiveRecord::Base
 
         thumbnails.push("#{self.id}_#{num+1}.png");
 
-        isSlideset = driver.execute_script %Q{ 
+        isSlideset = driver.execute_script %Q{
           return VISH.Slideset.isSlideset(VISH.Slides.getCurrentSlide())
         }
 
-        if isSlideset 
+        if isSlideset
           #Look for subslides
-          subslidesIds = (driver.execute_script %Q{ 
-            array = []; 
-            $(VISH.Slides.getCurrentSlide()).children("article").each(function(index,value){ array.push($(value).attr("id")) }); 
+          subslidesIds = (driver.execute_script %Q{
+            array = [];
+            $(VISH.Slides.getCurrentSlide()).children("article").each(function(index,value){ array.push($(value).attr("id")) });
             return array.join(",");
           }).split(",")
 
           subslidesIds.each_with_index do|sid,index|
 
-            driver.execute_script %Q{ 
+            driver.execute_script %Q{
               $("#"+"#{sid}").css("display","block");
               VISH.Slides.openSubslide("#{sid}");
             }
             sleep 3.0
             driver.save_screenshot(pdfFolder + "/#{self.id}_#{num+1}_#{index+1}.png")
             thumbnails.push("#{self.id}_#{num+1}_#{index+1}.png");
-            driver.execute_script %Q{ 
+            driver.execute_script %Q{
               VISH.Slides.closeSubslide("#{sid}");
             }
             sleep 0.5
@@ -1095,14 +1111,14 @@ class Excursion < ActiveRecord::Base
 
   def remove_pdf
     if File.exist?("#{Rails.root}/public/pdf/excursions/#{self.id}")
-      FileUtils.rm_rf("#{Rails.root}/public/pdf/excursions/#{self.id}") 
+      FileUtils.rm_rf("#{Rails.root}/public/pdf/excursions/#{self.id}")
     end
   end
 
 
   ####################
   ## Other Methods
-  #################### 
+  ####################
 
   def afterPublish
     #Check if post_activity is public. If not, make it public and update the created_at param.
@@ -1142,13 +1158,13 @@ class Excursion < ActiveRecord::Base
       end
 
       if stringToTestLanguage.is_a? String and !stringToTestLanguage.blank?
-        
+
         begin
           detectionResult = DetectLanguage.detect(stringToTestLanguage)
         rescue Exception => e
           detectionResult = []
         end
-        
+
         validLanguageCodes = ["de","en","es","fr","it","pt","ru"]
 
         detectionResult.each do |result|
@@ -1216,7 +1232,7 @@ class Excursion < ActiveRecord::Base
         :favourites => like_count,
         :number_of_slides => slide_count
       }
-      
+
       unless self.score_tracking.nil?
         rjson[:recommender_data] = self.score_tracking
         rsEngineCode = TrackingSystemEntry.getRSCode(JSON(rjson[:recommender_data])["rec"])
@@ -1286,7 +1302,7 @@ class Excursion < ActiveRecord::Base
     else
       activity_object.scope = 0 #public
     end
-    
+
     #Permissions
     activity_object.allow_download = !(parsed_json["allow_download"] == "false")
     activity_object.allow_comment = !(parsed_json["allow_comment"] == "false")
@@ -1308,7 +1324,7 @@ class Excursion < ActiveRecord::Base
     unless self.draft
       parsed_json["vishMetadata"]["released"] = "true"
     end
-    
+
     parsed_json["author"] = {name: author.name, vishMetadata:{ id: author.id }}
 
     self.update_column :json, parsed_json.to_json
@@ -1339,5 +1355,5 @@ class Excursion < ActiveRecord::Base
       VishLoep.sendActivityObject(self.activity_object) rescue nil
     end
   end
-  
+
 end

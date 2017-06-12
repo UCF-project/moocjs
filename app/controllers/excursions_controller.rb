@@ -13,7 +13,7 @@ class ExcursionsController < ApplicationController
   # Enable CORS
   before_filter :cors_preflight_check, :only => [:excursion_thumbnails,:last_slide,:iframe_api]
   after_filter :cors_set_access_control_headers, :only => [:excursion_thumbnails,:last_slide,:iframe_api]
-  
+
   include SocialStream::Controllers::Objects
 
 
@@ -25,10 +25,10 @@ class ExcursionsController < ApplicationController
     redirect_to home_path
   end
 
-  def show 
+  def show
     show! do |format|
       format.html {
-        if @excursion.draft 
+        if @excursion.draft
           if (can? :edit, @excursion)
             redirect_to edit_excursion_path(@excursion)
           else
@@ -52,7 +52,7 @@ class ExcursionsController < ApplicationController
         render "show.full", :layout => 'veditor'
       }
       format.json {
-        render :json => resource 
+        render :json => resource
       }
       format.gateway {
         @gateway = params[:gateway]
@@ -61,7 +61,7 @@ class ExcursionsController < ApplicationController
       }
       format.scorm {
         if (can? :download_source, @excursion)
-          scormVersion = (params["version"].present? and ["12","2004"].include?(params["version"])) ? params["version"] : "2004"
+          scormVersion = (params["version"].present? and ["12","2004","ucf"].include?(params["version"])) ? params["version"] : "2004"
           @excursion.to_scorm(self,scormVersion)
           @excursion.increment_download_count
           send_file @excursion.scormFilePath(scormVersion), :type => 'application/zip', :disposition => 'attachment', :filename => ("scorm" + scormVersion + "-#{@excursion.id}.zip")
@@ -142,7 +142,7 @@ class ExcursionsController < ApplicationController
     ensure
       Excursion.record_timestamps=true if isAdmin
     end
-   
+
     published = (wasDraft===true and @excursion.draft===false)
     if published
       @excursion.afterPublish
@@ -192,7 +192,7 @@ class ExcursionsController < ApplicationController
 
   def scormMetadata
     excursion = Excursion.find_by_id(params[:id])
-    scormVersion = ((params["version"].present? and ["12","2004"].include?(params["version"])) ? params["version"] : "2004")
+    scormVersion = ((params["version"].present? and ["12","2004","ucf"].include?(params["version"])) ? params["version"] : "2004")
     respond_to do |format|
       format.xml {
         xmlMetadata = Excursion.generate_scorm_manifest(scormVersion,JSON(excursion.json),excursion,{:LOMschema => params[:LOMschema]})
@@ -307,11 +307,11 @@ class ExcursionsController < ApplicationController
   ##################
   # Evaluation Methods
   ##################
-  
+
   def evaluate
     @excursion = Excursion.find(params["id"])
     @evmethod = params["evmethod"] || "wblts"
-    
+
     respond_to do |format|
       format.html {
         render "learning_evaluation"
@@ -323,7 +323,7 @@ class ExcursionsController < ApplicationController
   ##################
   # Recomendation on the last slide
   ##################
-  
+
   def last_slide
     #Prepare parameters to call the RecommenderSystem
     current_excursion =  Excursion.find_by_id(params[:excursion_id]) if params[:excursion_id]
@@ -346,7 +346,7 @@ class ExcursionsController < ApplicationController
   ####################
 
   def uploadTmpJSON
-    respond_to do |format|  
+    respond_to do |format|
       format.json {
         results = Hash.new
 
@@ -380,7 +380,7 @@ class ExcursionsController < ApplicationController
           t.write json
           t.close
           results["url"] = "#{Vish::Application.config.full_domain}/excursions/tmpJson.json?fileId=#{count.to_s}"
-        elsif responseFormat == "scorm" and ["12","2004"].include?(scormVersion)
+        elsif responseFormat == "scorm" and ["12","2004","ucf"].include?(scormVersion)
           #Generate SCORM package
           filePath = "#{Rails.root}/public/tmp/scorm/"
           fileName = "scorm" + scormVersion + "-tmp-#{count.to_s}"
@@ -431,7 +431,7 @@ class ExcursionsController < ApplicationController
         filePath = "#{Rails.root}/public/tmp/json/#{fileId}.json"
         if File.exist? filePath
           send_file "#{filePath}", :type => 'application/json', :disposition => 'attachment', :filename => "#{filename}.json"
-        else 
+        else
           render :json => results
         end
       }

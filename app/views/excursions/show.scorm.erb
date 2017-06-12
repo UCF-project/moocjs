@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="javascripts/vishViewer.min.js"></script>
 </head>
 
-<body onload="start()" style="display: none" class="loaded" id="presentation_iframe">
+<body onload="start()" style="display: none" class="loaded scorm_version_<%=version%>" id="presentation_iframe">
 
 	<%= render :partial => 'excursions/vish_viewer_scorm.full' %>
 
@@ -34,7 +34,7 @@
 		configuration["recommendationsAPI"] = {
 			rootURL: "<%=Vish::Application.config.full_domain%>" + "/excursions/last_slide.json"
 		};
-		
+
 		//Tracking System
 		<%if Vish::Application.config.trackingSystem %>
 			configuration["TrackingSystemAPIKEY"] = "<%= Vish::Application.config.APP_CONFIG['trackingSystemAPIKEY'] %>";
@@ -59,8 +59,9 @@
 
 		options["configuration"] = configuration;
 		options["developping"] = false;
-		
+
 		options["scorm"] = true;
+		options["scormVersion"] = "<%=version%>";
 
 		<% if excursion %>
 			options["watermarkURL"] = "<%=excursion_url(excursion)%>";

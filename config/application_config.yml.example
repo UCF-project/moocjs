@@ -32,7 +32,8 @@ development:
     mode: "matchtag" #matchany or matchtag
     qualityThreshold: 5
   moodle_url: "http://moodle.vishub.org"  #this param is optional
-
+  ucf:
+    enable: true
 
 production:
   name: "ViSH"
@@ -60,7 +61,7 @@ production:
   mail:
     type: "SMTP" #this can be SMTP or SENDMAIL
     # Check http://api.rubyonrails.org/classes/ActionMailer/Base.html for details.
-    #    
+    #
     #    #Settings for SMTP
     #    address: "localhost"
     #    port: 25
@@ -210,3 +211,7 @@ test:
 #       language: 0
 #       keywords: 0
 #       los: 0
+
+# Enable export SCORM UCF
+#  ucf:
+#    enable: true

@@ -729,6 +729,10 @@ en:
   go:
     repository: "go to repository"
   header:
+    warning_cookie_bar:
+      title: "COOKIES USAGE"
+      message: "We use own and third party cookies to facilitate the use of this website and obtain statistics for research. If you continue to browse we consider that you accept the use of cookies."
+      ok: "OK"
     tooltip:
       add_button: "Create excursions, resources, etc."
   help: "help"

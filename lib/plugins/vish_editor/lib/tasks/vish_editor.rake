@@ -19,7 +19,7 @@ CSS_FILES_AND_DIRS = ['app/assets/css_to_compile/libs','app/assets/css_to_compil
 CSS_EDITOR = ['lib/plugins/vish_editor/app/assets/css_to_compile/all/editor.css']
 
 # Vish Viewer files and dirs
-JS_VIEWER = ['lang/translations.js', 'libs/jquery-1.7.2.min.js', 'libs/jquery.watermark.min.js', 'libs/RegaddiChart.js', 'libs/jquery-ui-1.9.2.custom.min.js', 'libs/jquery.fancybox-1.3.4.js', 'libs/jquery.qrcode.min.js', 'libs/jquery.joyride-1.0.5.js', 'libs/jquery.cookie.js', 'libs/modernizr.mq.js', 'libs/modernizr.foundation.js', 'libs/jquery.ui.touch-punch.0.2.3.js', 'libs/loep.js', 'VISH.js', 'VISH.Constant.js', 'VISH.Configuration.js', 'VISH.QuizCharts.js', 'VISH.IframeAPI.js', 'VISH.User.js', 'VISH.I18n.js', 'VISH.Object.js', 'VISH.Object.PDF.js', 'VISH.Object.GoogleDOC.js', 'VISH.Object.Webapp.js', 'VISH.Object.Webapp.Handler.js', 'VISH.Renderer.js', 'VISH.Renderer.Filter.js', 'VISH.Debugging.js', 'VISH.Presentation.js', 'VISH.Slideset.js', 'VISH.SlidesSelector.js', 'VISH.Text.js', 'VISH.Video.js', 'VISH.Video.CustomPlayer.js', 'VISH.Video.HTML5.js', 'VISH.Video.Youtube.js', 'VISH.Audio.js', 'VISH.Audio.HTML5.js', 'VISH.ObjectPlayer.js', 'VISH.SnapshotPlayer.js', 'VISH.AppletPlayer.js', 'VISH.Viewer.js', 'VISH.Utils.js', 'VISH.Utils.iso8601Parser.js', 'VISH.Utils.Loader.js', 'VISH.Status.js', 'VISH.Status.Device.js', 'VISH.Status.Device.Browser.js', 'VISH.Status.Device.Features.js', 'VISH.ViewerAdapter.js', 'VISH.Flashcard.js',  'VISH.VirtualTour.js', 'VISH.EVideo.js', 'VISH.Themes.js', 'VISH.Themes.Core.js', 'VISH.Themes.Presentation.js', 'VISH.Animations.js', 'VISH.IframeMessenger.js', 'VISH.Messenger.js', 'VISH.Messenger.VE.js', 'VISH.Messenger.WAPP.js', 'VISH.Addons.js', 'VISH.Storage.js', 'VISH.Slides.js', 'VISH.Events.js', 'VISH.EventsNotifier.js', 'VISH.Quiz.js', 'VISH.Quiz.MC.js', 'VISH.Quiz.TF.js', 'VISH.Quiz.Sorting.js', 'VISH.Quiz.Open.js', 'VISH.Quiz.API.js', 'VISH.Events.Mobile.js', 'VISH.Events.Touchable.js', 'VISH.Recommendations.js', 'VISH.Tour.js', 'VISH.FullScreen.js', 'VISH.TrackingSystem.js', 'VISH.ProgressTracking.js', 'VISH.SCORM.js', 'VISH.SCORM.API.js']
+JS_VIEWER = ['lang/translations.js', 'libs/jquery-1.7.2.min.js', 'libs/jquery.watermark.min.js', 'libs/RegaddiChart.js', 'libs/jquery-ui-1.9.2.custom.min.js', 'libs/jquery.fancybox-1.3.4.js', 'libs/jquery.qrcode.min.js', 'libs/jquery.joyride-1.0.5.js', 'libs/jquery.cookie.js', 'libs/modernizr.mq.js', 'libs/modernizr.foundation.js', 'libs/jquery.ui.touch-punch.0.2.3.js', 'libs/loep.js', 'VISH.js', 'VISH.Constant.js', 'VISH.Configuration.js', 'VISH.QuizCharts.js', 'VISH.IframeAPI.js', 'VISH.User.js', 'VISH.I18n.js', 'VISH.Object.js', 'VISH.Object.PDF.js', 'VISH.Object.GoogleDOC.js', 'VISH.Object.Webapp.js', 'VISH.Object.Webapp.Handler.js', 'VISH.Renderer.js', 'VISH.Renderer.Filter.js', 'VISH.Debugging.js', 'VISH.Presentation.js', 'VISH.Slideset.js', 'VISH.SlidesSelector.js', 'VISH.Text.js', 'VISH.Video.js', 'VISH.Video.CustomPlayer.js', 'VISH.Video.HTML5.js', 'VISH.Video.Youtube.js', 'VISH.Audio.js', 'VISH.Audio.HTML5.js', 'VISH.ObjectPlayer.js', 'VISH.SnapshotPlayer.js', 'VISH.AppletPlayer.js', 'VISH.Viewer.js', 'VISH.Utils.js', 'VISH.Utils.iso8601Parser.js', 'VISH.Utils.Loader.js', 'VISH.Status.js', 'VISH.Status.Device.js', 'VISH.Status.Device.Browser.js', 'VISH.Status.Device.Features.js', 'VISH.ViewerAdapter.js', 'VISH.Flashcard.js',  'VISH.VirtualTour.js', 'VISH.EVideo.js', 'VISH.Themes.js', 'VISH.Themes.Core.js', 'VISH.Themes.Presentation.js', 'VISH.Animations.js', 'VISH.IframeMessenger.js', 'VISH.Messenger.js', 'VISH.Messenger.VE.js', 'VISH.Messenger.WAPP.js', 'VISH.Addons.js', 'VISH.Storage.js', 'VISH.Slides.js', 'VISH.Events.js', 'VISH.EventsNotifier.js', 'VISH.Quiz.js', 'VISH.Quiz.MC.js', 'VISH.Quiz.TF.js', 'VISH.Quiz.Sorting.js', 'VISH.Quiz.Open.js', 'VISH.Quiz.API.js', 'VISH.Events.Mobile.js', 'VISH.Events.Touchable.js', 'VISH.Recommendations.js', 'VISH.Tour.js', 'VISH.FullScreen.js', 'VISH.TrackingSystem.js', 'VISH.ProgressTracking.js', 'VISH.SCORM.js', 'VISH.SCORM.API.js', 'VISH.UCF.js', 'VISH.UCF.client.js', 'VISH.UCF.player.js']
 CSS_VIEWER = ['customPlayer.css','pack1templates.css','quiz.css','styles.css'];
 
 COMPILER_JAR_PATH = "lib/plugins/vish_editor/extras/compile"
@@ -32,7 +32,7 @@ CSSCOMPILER_DOWNLOAD_URI = 'http://yui.zenfs.com/releases/builder/builder_1.0.0b
 
 # Rake Task
 namespace :vish_editor do
-    
+
   task :build do
     Rake::Task["vish_editor:prepare"].invoke
     Rake::Task["vish_editor:compile"].invoke
@@ -52,7 +52,7 @@ namespace :vish_editor do
 
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/"
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions"
-    system "cp -r " + VISH_EDITOR_PATH + "/images/ " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/"
+    system "cp -r " + VISH_EDITOR_PATH + "/images " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/"
     system "cp -r " + VISH_EDITOR_PATH + "/stylesheets/ " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/css_to_compile/"
     system "cp -r " + VISH_EDITOR_PATH + "/js/ " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/js_to_compile/"
 
@@ -97,7 +97,7 @@ namespace :vish_editor do
 
     #CSS files
     puts "Combining CSS"
-   
+
     #Combine css files
     puts "Creating vishViewer.css"
     CSS_VIEWER.collect! {|x| "lib/plugins/vish_editor/app/assets/css_to_compile/all/" + x }
@@ -145,7 +145,7 @@ namespace :vish_editor do
 
     #Copy HTML files to ViSH
     system "cp " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer.full.erb " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer_scorm.full.erb"
-    
+
     #Create folders
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/images/"
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/javascripts/"
@@ -173,14 +173,14 @@ namespace :vish_editor do
     system "cp -r " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/* " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets"
     system "rm " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/all/*"
     system "cp " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/all/vishViewer.css " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/all/vishViewer.css"
-    
+
     #Remove unused fonts (font-awesome is only used in VEditor)
     system "rm -r " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/libs/font-awesome"
 
     #Rewrite paths for SCORM
     system "sed -i 's/\\\/images\\\//images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer_scorm.full.erb"
     system "sed -i 's/\\\/images\\\//..\\\/..\\\/images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/*/*css"
-    
+
     #Copy files to scorm folder in ViSH Editor
     # system "cp -r " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/* " + VISH_EDITOR_PATH + "/examples/contents/scorm/"
   end
@@ -222,11 +222,11 @@ namespace :vish_editor do
     compiler_options2['--formatting'] = 'PRETTY_PRINT'
     compiler_options2['--js_output_file'] = "vishEditor.js"
     compiler_options2['--warning_level'] = 'QUIET'
-    
+
     files.each do |file|
       puts " > #{file}"
     end
-    
+
     puts ""
     puts "----------------------------------------------------"
     puts "compiling ViSH Editor..."
@@ -244,12 +244,12 @@ namespace :vish_editor do
     compiler_options['--js_output_file'] = "vishViewer.min.js"
     compiler_options2['--js'] = JS_VIEWER.join(' ')
     compiler_options2['--js_output_file'] = "vishViewer.js"
-    
+
     system "java -jar #{JSCOMPILER_JAR_FILE} #{compiler_options.to_a.join(' ')}"
     system "java -jar #{JSCOMPILER_JAR_FILE} #{compiler_options2.to_a.join(' ')}"
     puts "DONE"
     puts "----------------------------------------------------"
- 
+
     puts "compiled #{JS_VIEWER.size} javascript file(s) into vishViewer.js and vishViewer.min.js"
     puts ""
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/javascripts"
@@ -283,7 +283,7 @@ namespace :vish_editor do
     files.each do |file|
       system "java -jar #{CSSCOMPILER_JAR_FILE} --type css #{file} -o #{file}"
     end
-   
+
     puts "DONE"
     puts "----------------------------------------------------"
     puts "compiled #{files.size} css file(s)"
@@ -291,7 +291,7 @@ namespace :vish_editor do
 
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/"
     system "mv " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/css_to_compile/* " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/"
-  
+
     #Restore vish_editor.css rails file
     system "cp " + VISH_EDITOR_PATH + "/stylesheets/vish_editor.css " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/vish_editor.css"
   end
@@ -301,7 +301,7 @@ namespace :vish_editor do
   task :download_gcompiler do
     require 'uri'; require 'net/http'; require 'tempfile'; require 'open-uri'
     puts "downloading compiler jar from: #{JSCOMPILER_DOWNLOAD_URI}"
-   
+
     FileUtils.mkdir_p(COMPILER_JAR_PATH)
     writeOut = open(COMPILER_JAR_PATH + "/compiler-latest.zip", "wb")
     writeOut.write(open(JSCOMPILER_DOWNLOAD_URI).read)
@@ -315,7 +315,7 @@ namespace :vish_editor do
   task :download_YUIcompressor do
     require 'uri'; require 'net/http'; require 'tempfile'; require 'open-uri'
     puts "downloading compiler jar from: #{CSSCOMPILER_DOWNLOAD_URI}"
-   
+
     FileUtils.mkdir_p(COMPILER_JAR_PATH)
     writeOut = open(COMPILER_JAR_PATH + "/YUIcompressor.zip", "wb")
     writeOut.write(open(CSSCOMPILER_DOWNLOAD_URI).read)

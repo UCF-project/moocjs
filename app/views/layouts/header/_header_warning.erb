@@ -1,9 +1,9 @@
 <div id="warning_cookie_bar" class="row">
-    <div class="col-md-2" id="ckH">USO  DE COOKIES</div>
-    <div class="col-md-8">Usamos cookies propias y de terceros para facilitar el uso de esta web y obtener estadísticas destinadas a la investigación.Si continua navegando consideramos que acepta el uso de cookies.</div>
+    <div class="col-md-2" id="ckH"><%=t('header.warning_cookie_bar.title')%></div>
+    <div class="col-md-8"><%=t('header.warning_cookie_bar.message')%></div>
     <div class="col-md-2">
         <div id="boxieOk">
-            <a id="cookie_close" href="javascript:void(0);" onclick="setCookieOn();">OK</a>
+            <a id="cookie_close" href="javascript:void(0);" onclick="setCookieOn();"><%=t('header.warning_cookie_bar.ok')%></a>
         </div>
     </div>
 </div>

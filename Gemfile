@@ -6,7 +6,8 @@ gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => "3-2-stable"
 #Database Adapters
 gem 'sqlite3', '= 1.3.9'
 gem 'pg', '= 0.17.1'
-gem 'mysql2', '= 0.3.16'
+# gem 'mysql2', '= 0.3.20'
+gem "mysql2", "~> 0.3.11"
 
 gem 'sass-rails', '= 3.2.6'
 gem 'bootstrap-sass', '= 3.1.1.0'
@@ -56,7 +57,7 @@ gem 'paperclip-ffmpeg', :git => 'git://github.com/ebarra/paperclip-ffmpeg.git'
 
 #Customized/Local Gems
 # $ export FORCE_LOCAL_SS=socialStreamPath
-if ENV['FORCE_LOCAL_SS'] 
+if ENV['FORCE_LOCAL_SS']
   path ENV['FORCE_LOCAL_SS'] do
     gem 'social_stream-base'
     gem 'social_stream-documents'
