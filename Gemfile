@@ -10,11 +10,11 @@ gem 'pg', '= 0.17.1'
 gem "mysql2", "~> 0.3.11"
 
 gem 'sass-rails', '= 3.2.6'
-gem 'bootstrap-sass', '= 3.1.1.0'
+gem 'bootstrap-sass', '>= 3.4.1'
 
 gem 'coffee-rails', '= 3.2.2'
 gem 'uglifier', '= 1.2.3'
-gem 'jquery-rails', '= 3.1.0'
+gem 'jquery-rails', '>= 3.1.3/'
 gem 'jquery-ui-rails', '= 4.1.2'
 gem 'json', '= 1.8.3'
 gem 'sinatra', '= 1.3.2'
@@ -28,17 +28,17 @@ gem 'exception_notification', '= 4.1.1'
 gem 'rspec-rails', '= 2.9'
 gem 'net-ssh', '= 2.4.0'
 gem 'shortener', '= 0.3.0'
-gem 'rubyzip', '= 1.0.0'
+gem 'rubyzip', '>= 1.3.0'
 gem 'pry', '= 0.9.12.6'
-gem 'rest-client', '= 1.6.7'
+gem 'rest-client', '>= 1.8.0'
 gem 'pdf-reader', '= 1.3.3'
 gem 'avatars_for_rails', '= 1.1.4'
 gem 'axlsx', '= 2.0.1' #xlsx generation
 gem 'axlsx_rails', '= 0.1.5'
 gem 'acts_as_xlsx', :git => 'git://github.com/randym/acts_as_xlsx.git', :ref => '919817e590b1cf8e27632e630469603c78a50402'
-gem "paperclip", '= 3.5.1'
+gem "paperclip", '>= 5.2.0'
 gem "delayed_paperclip", "= 2.7.0"
-gem 'sanitize', '= 2.1.0'
+gem 'sanitize', '>= 4.6.3'
 gem 'mailboxer', '= 0.10.3'
 gem 'hashie', '= 2.1.2'
 gem 'detect_language', '=1.0.5'
@@ -76,7 +76,7 @@ else
 end
 
 #for INVITATION ONLY
-gem 'devise_invitable', '= 1.1.8'
+gem 'devise_invitable', '>= 1.3.5'
 
 #CAS
 gem 'devise_cas_authenticatable', '= 1.7.1'
